@@ -42,7 +42,7 @@ $siswa = query("SELECT * FROM siswa");
                 <td><?= $row["email"]; ?></td>
                 <td><?= $row["jurusan"]; ?></td>
                 <td>
-                    <a href="">Edit</a>
+                    <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
                     |
                     <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Apakah anda yakin menghapus data?')">Delete</a>
                 </td>
