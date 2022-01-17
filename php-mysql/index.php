@@ -15,6 +15,10 @@ $siswa = query("SELECT * FROM siswa");
 <body>
     <h1>Daftar Siswa</h1>
 
+    <a href="tambah.php">Tambah Data Siswa</a>
+    <br>
+    <br>
+
     <table border="1" cellpadding="10" cellspacing='0' style="text-align: center;">
         <tr>
             <th>No.</th>
@@ -31,16 +35,16 @@ $siswa = query("SELECT * FROM siswa");
             <tr>
                 <td><?= $i ?></td>
                 <td>
-                    <img src="assets/<?= $row["gambar"] ?>" alt="" height="100">
+                    <img src="assets/<?= $row["gambar"]; ?>" alt="" height="100">
                 </td>
-                <td><?= $row["nis"] ?></td>
-                <td><?= $row["nama"] ?></td>
-                <td><?= $row["email"] ?></td>
-                <td><?= $row["jurusan"] ?></td>
+                <td><?= $row["nis"]; ?></td>
+                <td><?= $row["nama"]; ?></td>
+                <td><?= $row["email"]; ?></td>
+                <td><?= $row["jurusan"]; ?></td>
                 <td>
                     <a href="">Edit</a>
-                    | 
-                    <a href="">Delete</a>
+                    |
+                    <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Apakah anda yakin menghapus data?')">Delete</a>
                 </td>
             </tr>
             <?php $i++; ?>
