@@ -64,3 +64,14 @@ function update($data, $id)
     // give return
     return mysqli_affected_rows($db);
 }
+
+function cari($keyword)
+{
+    $query = "SELECT * FROM siswa 
+                WHERE
+                nama LIKE '%$keyword%' OR
+                nis LIKE '%$keyword%' OR
+                email LIKE '%$keyword%' OR
+                jurusan LIKE '%$keyword%'";
+    return query($query);
+}
