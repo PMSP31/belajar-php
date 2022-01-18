@@ -1,6 +1,6 @@
 <?php
 require 'functions.php';
-// get ID
+// get ID & Image
 $id = $_GET["id"];
 // query data by id
 $siswa = query("SELECT * FROM siswa WHERE id = $id")[0];
@@ -35,7 +35,8 @@ if (isset($_POST['submit'])) {
 <body>
     <h1>Update Data Siswa</h1>
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="oldImage" value="<?= $siswa['gambar'] ?>">
         <ul>
             <li>
                 <label for="nis">NIS :</label>
@@ -55,7 +56,9 @@ if (isset($_POST['submit'])) {
             </li>
             <li>
                 <label for="gambar">Gambar :</label>
-                <input type="text" name="gambar" id="gambar" value="<?= $siswa["gambar"] ?>">
+                <input type="file" name="gambar" id="gambar">
+                <br>
+                <img src="assets/<?= $siswa["gambar"] ?>" alt="">
             </li>
             <li>
                 <button type="submit" name="submit">Kirim Data</button>

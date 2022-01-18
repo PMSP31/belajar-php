@@ -46,7 +46,7 @@ if (isset($_POST["search"])) {
             <tr>
                 <td><?= $i ?></td>
                 <td>
-                    <img src="assets/<?= $row["gambar"]; ?>" alt="" height="100">
+                    <img src="assets/<?= $row["gambar"]; ?>" alt="<?= $row["nama"] ?>" height="100">
                 </td>
                 <td><?= $row["nis"]; ?></td>
                 <td><?= $row["nama"]; ?></td>
