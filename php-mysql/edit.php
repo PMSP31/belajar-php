@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// if user not login, redirect to login page
+if (!isset($_SESSION["isLogin"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require 'functions.php';
 // get ID & Image
 $id = $_GET["id"];

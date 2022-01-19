@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// if user not login, redirect to login page
+if (!isset($_SESSION["isLogin"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require 'functions.php';
 $siswa = query("SELECT * FROM siswa");
 // Search Button clicked
@@ -18,6 +26,11 @@ if (isset($_POST["search"])) {
 
 <body>
     <h1>Daftar Siswa</h1>
+
+    <a href="logout.php">Log Out</a>
+
+    <br>
+    <br>
 
     <a href="tambah.php">Tambah Data Siswa</a>
     <br>
