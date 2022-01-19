@@ -8,7 +8,15 @@ if (!isset($_SESSION["isLogin"])) {
 }
 
 require 'functions.php';
-$siswa = query("SELECT * FROM siswa");
+
+// set pagination
+$dataPerHalaman = 2;
+$totalData = count(query("SELECT * FROM siswa"));
+$totalPage = ceil($totalData / $dataPerHalaman);
+$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$awalData = ($dataPerHalaman * $activePage) - $dataPerHalaman;
+
+$siswa = query("SELECT * FROM siswa LIMIT $awalData, $dataPerHalaman");
 // Search Button clicked
 if (isset($_POST["search"])) {
     $siswa = cari($_POST['keyword']);
@@ -54,7 +62,7 @@ if (isset($_POST["search"])) {
             <th>Aksi</th>
         </tr>
 
-        <?php $i = 1; ?>
+        <?php $i = 1 + $awalData; ?>
         <?php foreach ($siswa as $row) : ?>
             <tr>
                 <td><?= $i ?></td>
@@ -74,6 +82,35 @@ if (isset($_POST["search"])) {
             <?php $i++; ?>
         <?php endforeach; ?>
     </table>
+
+    <!-- Navigation -->
+    <br>
+    <!-- FIRST PAGE -->
+    <?php if ($activePage != 1) : ?>
+        <a href="?page=1">FIRST</a>
+    <?php endif ?>
+
+    <?php if ($activePage > 1) : ?>
+        <a href="?page=<?= $activePage - 1 ?>">&laquo;</a>
+    <?php endif ?>
+
+    <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+        <?php if ($i == $activePage) : ?>
+            <a href="?page=<?= $i ?>" style="font-weight: bold; color: red;"><?= $i; ?></a>
+        <?php else : ?>
+            <a href="?page=<?= $i ?>"><?= $i; ?></a>
+        <?php endif ?>
+    <?php endfor ?>
+
+    <?php if ($activePage < $totalPage) : ?>
+        <a href="?page=<?= $activePage + 1 ?>">&raquo;</a>
+    <?php endif ?>
+
+    <!-- LAST PAGE -->
+    <?php if ($activePage != $totalPage) : ?>
+        <a href="?page=<?= $totalPage ?>">LAST</a>
+    <?php endif ?>
+
 </body>
 
 </html>
