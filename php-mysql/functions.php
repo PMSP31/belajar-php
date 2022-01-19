@@ -153,3 +153,42 @@ function cari($keyword)
                 jurusan LIKE '%$keyword%'";
     return query($query);
 }
+
+function signUp($data)
+{
+    global $db;
+
+    $username = strtolower(stripslashes($data['username']));
+    $password = mysqli_real_escape_string($db, $data['password']);
+    $confirmPassword = mysqli_real_escape_string($db, $data['confirm-password']);
+
+    // check empty username
+    if (empty(trim($username))) {
+        return false;
+    }
+
+    // check duplicate user
+    $result = mysqli_query($db, "SELECT username FROM user WHERE username = '$username' ");
+    if (mysqli_fetch_assoc($result)) {
+        echo  " <script>
+                    alert('Username sudah terdaftar!!')
+                </script>";
+        return false;
+    }
+
+    // check confirm password
+    if ($password !== $confirmPassword) {
+        echo  " <script>
+                    alert('Password yang anda masukan tidak sama!!')
+                </script>";
+        return false;
+    }
+
+    // encryption password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    // add new user to DB
+    mysqli_query($db, "INSERT INTO user VALUES(null, '$username','$password')");
+
+    return mysqli_affected_rows($db);
+}
