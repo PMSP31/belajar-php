@@ -18,7 +18,7 @@ $siswa = query($query);
         <th>Nama</th>
         <th>Email</th>
         <th>Jurusan</th>
-        <th>Aksi</th>
+        <th class="aksi">Aksi</th>
     </tr>
 
     <?php $i = 1 ?>
@@ -32,7 +32,7 @@ $siswa = query($query);
             <td><?= $row["nama"]; ?></td>
             <td><?= $row["email"]; ?></td>
             <td><?= $row["jurusan"]; ?></td>
-            <td>
+            <td class="aksi">
                 <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
                 |
                 <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Apakah anda yakin menghapus data?')">Delete</a>
