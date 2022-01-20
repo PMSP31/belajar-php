@@ -30,6 +30,16 @@ if (isset($_POST["search"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
+    <style>
+        .loader {
+            width: 100px;
+            position: absolute;
+            top: 115px;
+            left: 350px;
+            z-index: -1;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,42 +56,46 @@ if (isset($_POST["search"])) {
 
     <form action="" method="post">
         <label for="keyword">Cari Data Siswa :</label>
-        <input type="search" name="keyword" id="keyword" size="30" placeholder="Cari Data Siswa..." autofocus autocomplete="off">
-        <button type="submit" name="search">Cari</button>
+        <input type="text" name="keyword" id="keyword" size="30" placeholder="Cari Data Siswa..." autofocus autocomplete="off">
+        <button type="submit" name="search" id="search-btn">Cari</button>
+        <img src="assets/loader.gif" alt="loader" class="loader">
     </form>
+
     <br>
 
-    <table border="1" cellpadding="10" cellspacing='0' style="text-align: center;">
-        <tr>
-            <th>No.</th>
-            <th>Gambar</th>
-            <th>NIS</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Jurusan</th>
-            <th>Aksi</th>
-        </tr>
-
-        <?php $i = 1 + $awalData; ?>
-        <?php foreach ($siswa as $row) : ?>
+    <div id="container">
+        <table border="1" cellpadding="10" cellspacing='0' style="text-align: center;">
             <tr>
-                <td><?= $i ?></td>
-                <td>
-                    <img src="assets/<?= $row["gambar"]; ?>" alt="<?= $row["nama"] ?>" height="100">
-                </td>
-                <td><?= $row["nis"]; ?></td>
-                <td><?= $row["nama"]; ?></td>
-                <td><?= $row["email"]; ?></td>
-                <td><?= $row["jurusan"]; ?></td>
-                <td>
-                    <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
-                    |
-                    <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Apakah anda yakin menghapus data?')">Delete</a>
-                </td>
+                <th>No.</th>
+                <th>Gambar</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Jurusan</th>
+                <th>Aksi</th>
             </tr>
-            <?php $i++; ?>
-        <?php endforeach; ?>
-    </table>
+
+            <?php $i = 1 + $awalData; ?>
+            <?php foreach ($siswa as $row) : ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <img src="assets/<?= $row["gambar"]; ?>" alt="<?= $row["nama"] ?>" height="100">
+                    </td>
+                    <td><?= $row["nis"]; ?></td>
+                    <td><?= $row["nama"]; ?></td>
+                    <td><?= $row["email"]; ?></td>
+                    <td><?= $row["jurusan"]; ?></td>
+                    <td>
+                        <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
+                        |
+                        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Apakah anda yakin menghapus data?')">Delete</a>
+                    </td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
     <!-- Navigation -->
     <br>
@@ -111,6 +125,8 @@ if (isset($_POST["search"])) {
         <a href="?page=<?= $totalPage ?>">LAST</a>
     <?php endif ?>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
